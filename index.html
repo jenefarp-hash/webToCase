@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow: hidden;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 14px;
+        }
+
+        input[type="text"], 
+        input[type="email"], 
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            background-color: #fafbfc;
+        }
+
+        input[type="text"]:focus, 
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            color: #1f2937;
+        }
+
+        .thank-you.show {
+            display: block;
+        }
+
+        .thank-you-icon {
+            font-size: 64px;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .thank-you h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .thank-you p {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+    
+    <div class="container">
+        <h1 style="text-align: center;">Submit a Support Request</h1>
+        <!-- FORM PAGE -->
+        <div id="formPage">
+            <div class="form-container">
+                <form id="salesforceForm" action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Df600000GYAvl" method="POST" target="submitFrame">
+                    <input type=hidden name="orgid" value="00Df600000GYAvl">
+                    <input type=hidden name="retURL" value="http://">
+
+                    <label for="name">Contact Name</label>
+                    <input id="name" maxlength="80" name="name" size="20" type="text" /><br>
+
+                    <label for="email">Email</label>
+                    <input id="email" maxlength="80" name="email" size="20" type="text" /><br>
+
+                    <label for="phone">Phone</label>
+                    <input id="phone" maxlength="40" name="phone" size="20" type="text" /><br>
+
+                    State:<select id="00Nf600000BXaJK" name="00Nf600000BXaJK" title="State">
+                        <option value="">--None--</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                    </select><br>
+
+                    <label for="subject">Subject</label>
+                    <input id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
+
+                    <label for="description">Description</label>
+                    <textarea name="description"></textarea><br>
+
+                    <input type="hidden" id="external" name="external" value="1" /><br>
+
+                    <input type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <!-- THANK YOU PAGE (Hidden Initially) -->
+        <div id="thankYouPage" class="thank-you">
+            <div class="thank-you-icon">✅</div>
+            <h2>Thank you reaching out</h2>
+            <p>Your case has been submitted successfully to our Salesforce org. Our support team will contact you shortly.</p>
+        </div>
+    </div>
+
+    <!-- Hidden iframe for form submission -->
+    <iframe id="submitFrame" name="submitFrame" style="display: none;"></iframe>
+
+    <script>
+        document.getElementById('salesforceForm').addEventListener('submit', function() {
+            // Hide form and show thank you immediately
+            document.getElementById('formPage').style.display = 'none';
+            document.getElementById('thankYouPage').classList.add('show');
+            
+            // Form submits to Salesforce via hidden iframe simultaneously
+            // Single file - creates "new page" effect without separate files
+        });
+    </script>
+</body>
+</html>
