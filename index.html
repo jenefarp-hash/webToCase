@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+    <style>
+        body {
+            font-family: Salesforce Sans, Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-center {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 380px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 28px;
+        }
+
+        .heading {
+            font-size: 24px;
+            font-weight: 700;
+            color: #16325c;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .thank-text {
+            text-align: center;
+            font-size: 15px;
+            color: #3e3e3c;
+            line-height: 1.6;
+            margin-bottom: 26px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: #3e3e3c;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 14px;
+            border: 1px solid #dddbda;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 70px;
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .col {
+            flex: 1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0176d3;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #014486;
+        }
+
+        #thankYouSection {
+            display: none;
+        }
+    </style>
+
+    <script>
+        function showThankYou() {
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('thankYouSection').style.display = 'flex';
+        }
+
+        function backToHome() {
+            document.getElementById('caseForm').reset();
+            document.getElementById('thankYouSection').style.display = 'none';
+            document.getElementById('formSection').style.display = 'flex';
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- FORM SECTION -->
+<div class="page-center" id="formSection">
+    <div class="card">
+
+        <div class="heading">Case Support</div>
+
+        <form id="caseForm"
+              action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Df600000GYAvl"
+              method="POST"
+              target="hidden_iframe"
+              onsubmit="showThankYou()">
+
+            <input type="hidden" name="orgid" value="00Df600000GYAvl">
+            <input type="hidden" name="retURL" value="http://">
+
+            <label for="name">Contact Name</label>
+            <input id="name" name="name" type="text" required>
+
+            <div class="row">
+                <div class="col" style="margin:5px">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text" required>
+                </div>
+                <div class="col" style="margin:5px">
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" type="text" required>
+                </div>
+            </div>
+
+            <label for="00Nf600000BXaJK">State</label>
+            <select id="00Nf600000BXaJK" name="00Nf600000BXaJK" required>
+                <option value="">--None--</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+            </select>
+
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" required>
+
+            <label for="description">Description</label>
+            <textarea name="description" required></textarea>
+
+            <input type="hidden" name="external" value="1">
+
+            <button type="submit" class="btn">Submit Case</button>
+        </form>
+    </div>
+</div>
+
+<!-- THANK YOU SECTION -->
+<div class="page-center" id="thankYouSection">
+    <div class="card">
+        <div class="heading">Thank You!</div>
+        <div class="thank-text">
+            Thanks for contacting Case Support.<br>
+            We’ve received your request and our team will get back to you shortly.
+        </div>
+        <button class="btn" onclick="backToHome()">Back to Home</button>
+    </div>
+</div>
+
+<!-- Hidden iframe -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+</body>
+</html>
